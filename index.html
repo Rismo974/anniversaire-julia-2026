@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les 8 ans de Julia</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="card">
+<h1>🎂 Les 8 ans de Julia</h1>
+<h2 id="invitee">Bonjour !</h2>
+<p>Samedi 08 août 2026</p>
+<p>🕑 14h30 à 17h00</p>
+<p>📍 52 Chemin de Montauban</p>
+<p>Réponse souhaitée avant le 25 juillet 2026</p>
+<button onclick="reply('Présente')">✅ Je serai présente</button>
+<button onclick="reply('Absente')">❌ Je ne pourrai pas venir</button>
+<p id="result"></p>
+</div>
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxK1NPjr9SN03-xPeP3dCTlmptkAIGKIo80QYOjzyO-jwWJtPzWr9n9hT-ILEyQH-aU/exec";
+const params = new URLSearchParams(location.search);
+const invitee = params.get('invite') || 'Invitée';
+document.getElementById('invitee').innerText = 'Bonjour ' + invitee + ' !';
+
+async function reply(response){
+  const r = await fetch(SCRIPT_URL,{
+    method:'POST',
+    body:JSON.stringify({invitee,response})
+  });
+  document.getElementById('result').innerText='Merci pour votre réponse !';
+}
+</script>
+</body>
+</html>

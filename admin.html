@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Julia</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="card">
+<h1>🎂 Tableau de bord</h1>
+<ul id="list"></ul>
+</div>
+<script>
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbxK1NPjr9SN03-xPeP3dCTlmptkAIGKIo80QYOjzyO-jwWJtPzWr9n9hT-ILEyQH-aU/exec";
+
+fetch(SCRIPT_URL + "?action=list")
+.then(r=>r.json())
+.then(data=>{
+ const ul=document.getElementById('list');
+ data.forEach(i=>{
+   const li=document.createElement('li');
+   li.textContent=`${i.invitee} : ${i.response || 'En attente'}`;
+   ul.appendChild(li);
+ });
+});
+</script>
+</body>
+</html>
