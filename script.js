@@ -9,15 +9,19 @@ document.getElementById("invitee").innerHTML =
 
 async function reply(response){
 
-    document.querySelectorAll("button")
-        .forEach(btn => btn.disabled = true);
+    const buttons = document.querySelectorAll("button");
 
-    document.getElementById("result").innerHTML =
-        "⏳ Enregistrement...";
+    buttons.forEach(btn => btn.disabled = true);
+
+    document.getElementById("result").innerHTML = `
+        <div class="success">
+            ⏳ Enregistrement de ta réponse...
+        </div>
+    `;
 
     try{
 
-        await fetch(SCRIPT_URL,{
+        const r = await fetch(SCRIPT_URL,{
             method:"POST",
             body:JSON.stringify({
                 invitee,
@@ -25,34 +29,28 @@ async function reply(response){
             })
         });
 
-        document.getElementById("result").innerHTML = `
-            <div class="success">
+        if(!r.ok){
+            throw new Error();
+        }
 
-                <h3>🎉 Merci ${invitee} !</h3>
+        // Petit délai pour que l'utilisateur voie le message
+        await new Promise(resolve => setTimeout(resolve, 700));
 
-                <p>
-                    Ta réponse a bien été enregistrée.
-                </p>
-
-                <p>
-                    Julia a hâte de partager cette journée avec toi ❤️
-                </p>
-
-            </div>
-        `;
+        window.location.href =
+            `confirmation.html?invite=${encodeURIComponent(invitee)}&response=${encodeURIComponent(response)}`;
 
     }
-    catch{
+
+    catch(e){
 
         document.getElementById("result").innerHTML = `
             <div class="error">
-                Une erreur est survenue.
-                Merci de réessayer.
+                😢 Une erreur est survenue.<br><br>
+                Merci de réessayer dans quelques instants.
             </div>
         `;
 
-        document.querySelectorAll("button")
-            .forEach(btn => btn.disabled = false);
+        buttons.forEach(btn => btn.disabled = false);
 
     }
 
