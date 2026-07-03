@@ -79,7 +79,18 @@ body{
 
 .card::before{
 
-    display:none;
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    linear-gradient(180deg,
+    rgba(255,255,255,.75),
+    rgba(255,255,255,0));
+
+    pointer-events:none;
 
 }
 
@@ -96,7 +107,7 @@ body{
 @keyframes float{
 
     0%{transform:translateY(0);}
-    50%{transform:translateY(0);}
+    50%{transform:translateY(-8px);}
     100%{transform:translateY(0);}
 
 }
@@ -124,10 +135,6 @@ h1{
     line-height:1;
 
     margin-bottom:18px;
-
-    text-shadow:
-    0 1px 0 rgba(255,255,255,.8),
-    0 3px 10px rgba(255,90,138,.18);
 
 }
 
