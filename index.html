@@ -3,17 +3,17 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Les 8 ans de Julia</title>
+<title>Les 8 ans de Julia</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -35,12 +35,8 @@
             Julia
         </h2>
 
-        <p class="welcome" id="invitee">
-            Bonjour !
-        </p>
-
         <p class="subtitle">
-            Julia serait très heureuse de partager son anniversaire avec toi ❤️
+            Julia fête bientôt ses 8 ans et serait ravie de partager cet après-midi avec toi ❤️
         </p>
 
         <div class="info">
@@ -48,24 +44,24 @@
             <div class="info-card">
                 <span class="icon">📅</span>
                 <div>
-                    <strong>Samedi 08 août 2026</strong><br>
-                    Dès 14h30
+                    <strong>Date</strong><br>
+                    Samedi 08 août 2026
                 </div>
             </div>
 
             <div class="info-card">
                 <span class="icon">🕑</span>
                 <div>
-                    <strong>14h30 - 17h00</strong><br>
-                    Goûter & jeux
+                    <strong>Heure</strong><br>
+                    À partir de 14h30
                 </div>
             </div>
 
             <div class="info-card">
                 <span class="icon">📍</span>
                 <div>
-                    <strong>52 Chemin de Montauban</strong><br>
-                    Saint-Denis
+                    <strong>Adresse</strong><br>
+                    52 Chemin de Montauban
                 </div>
             </div>
 
@@ -73,26 +69,27 @@
 
         <div class="deadline">
 
-            Réponse souhaitée avant le
-
+            Merci de répondre avant le
             <strong>25 juillet 2026</strong>
 
         </div>
 
+        <p class="welcome" id="invitee">
+            Bonjour !
+        </p>
+
+        <p class="subtitle">
+            Pourras-tu être présente ?
+        </p>
+
         <div class="buttons">
 
-            <button class="btn yes"
-                    onclick="reply('Présente')">
-
-                🩷 Oui avec plaisir !
-
+            <button class="btn yes" onclick="reply('Présente')">
+                😊 Je serai présente
             </button>
 
-            <button class="btn no"
-                    onclick="reply('Absente')">
-
-                🤍 Je ne pourrai pas venir
-
+            <button class="btn no" onclick="reply('Absente')">
+                ☹️ Je ne pourrai pas venir
             </button>
 
         </div>
@@ -105,22 +102,20 @@
 
 <script>
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxK1NPjr9SN03-xPeP3dCTlmptkAIGKIo80QYOjzyO-jwWJtPzWr9n9hT-ILEyQH-aU/exec";
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbxK1NPjr9SN03-xPeP3dCTlmptkAIGKIo80QYOjzyO-jwWJtPzWr9n9hT-ILEyQH-aU/exec";
 
-const params = new URLSearchParams(window.location.search);
+const params=new URLSearchParams(window.location.search);
 
-const invitee = params.get("invite") || "Invitée";
+const invitee=params.get("invite") || "Invitée";
 
-document.getElementById("invitee").innerHTML =
-`Bonjour <strong>${invitee}</strong> 💜`;
+document.getElementById("invitee").innerHTML=
+`Bonjour <strong>${invitee}</strong> ! 🎉`;
 
 async function reply(response){
 
-    document.querySelectorAll("button")
-        .forEach(btn=>btn.disabled=true);
+    document.querySelectorAll("button").forEach(btn=>btn.disabled=true);
 
-    document.getElementById("result").innerHTML =
-    "⏳ Enregistrement...";
+    document.getElementById("result").innerHTML="⏳ Enregistrement...";
 
     try{
 
@@ -133,33 +128,29 @@ async function reply(response){
         });
 
         document.getElementById("result").innerHTML=`
-            <div class="success">
+        <div class="success">
 
-                <h3>🎉 Merci ${invitee} !</h3>
+            <h3>🎉 Merci ${invitee} !</h3>
 
-                <p>
-                    Ta réponse a bien été enregistrée.
-                </p>
+            <p>
+                Ta réponse a bien été enregistrée.
+            </p>
 
-                <p>
-                    Julia sera ravie de te retrouver le
-                    <strong>08 août</strong> ❤️
-                </p>
+            <p>
+                Julia a hâte de partager cette journée avec toi ❤️
+            </p>
 
-            </div>
-        ;
+        </div>`;
 
     }
     catch{
 
         document.getElementById("result").innerHTML=`
         <div class="error">
-            Une erreur est survenue.
-        </div>
-        `;
+            Une erreur est survenue. Merci de réessayer.
+        </div>`;
 
-        document.querySelectorAll("button")
-        .forEach(btn=>btn.disabled=false);
+        document.querySelectorAll("button").forEach(btn=>btn.disabled=false);
 
     }
 
